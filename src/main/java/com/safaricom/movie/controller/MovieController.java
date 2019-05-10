@@ -5,6 +5,7 @@
  */
 package com.safaricom.movie.controller;
 
+import com.safaricom.movie.auth.ApiPrincipal;
 import com.safaricom.movie.entities.Movie;
 import com.safaricom.movie.entities.Rating;
 import com.safaricom.movie.entities.Status;
@@ -24,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,7 +60,7 @@ public class MovieController {
     private StatusDao statusDao;
     
     @PostMapping
-    private ResponseEntity createMovie(@RequestBody MovieRequest request){
+    private ResponseEntity createMovie(@RequestBody MovieRequest request, @AuthenticationPrincipal ApiPrincipal principal){
         boolean exists = movieDao.existsByTitle(request.getTitle());
         if(exists){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new SingleItemResponse(Response.MOVIE_EXISTS.status(), null));
@@ -67,7 +69,7 @@ public class MovieController {
     }
     
     @PutMapping
-    private ResponseEntity updateUser(@RequestBody MovieRequest request){
+    private ResponseEntity updateMovie(@RequestBody MovieRequest request, @AuthenticationPrincipal ApiPrincipal principal){
         boolean exists = movieDao.existsById(request.getId());
         
         if(!exists){
@@ -77,12 +79,13 @@ public class MovieController {
     }
     
     @GetMapping
-    public ResponseEntity getUsers(
+    public ResponseEntity getMovies(
             @RequestParam(value = "direction", defaultValue = AppConstants.Pagination.DEFAULT_ORDER_DIRECTION) String direction,
             @RequestParam(value = "oderBy", defaultValue = AppConstants.Pagination.DEFAULT_ORDER_BY) String orderBy,
             @RequestParam(value = "page", defaultValue = AppConstants.Pagination.DEFAULT_PAGE_NUMBER) int page,
             @RequestParam(value = "size", defaultValue = AppConstants.Pagination.DEFAULT_PAGE_SIZE) int size,
-            @RequestParam(value = "flag", required = false) Integer watchedFlag) {
+            @RequestParam(value = "flag", required = false) Integer watchedFlag,
+            @AuthenticationPrincipal ApiPrincipal principal) {
         
         Pageable pageable = Util.getPageable(page, size, direction, orderBy);
         Page<Movie> movies = movieDao.findAllByDateDeletedIsNull(pageable);
@@ -95,7 +98,7 @@ public class MovieController {
     }
     
     @DeleteMapping("/{id}")
-    private ResponseEntity deleteMovie(@PathVariable("id") Integer id){
+    private ResponseEntity deleteMovie(@PathVariable("id") Integer id, @AuthenticationPrincipal ApiPrincipal principal){
         boolean exists = movieDao.existsById(id);
         
         if(!exists){
@@ -104,7 +107,7 @@ public class MovieController {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.deleteMovie(id));
     }
     @GetMapping("/{id}")
-    private ResponseEntity getMovie(@PathVariable("id") Integer id){
+    private ResponseEntity getMovie(@PathVariable("id") Integer id, @AuthenticationPrincipal ApiPrincipal principal){
         boolean exists = movieDao.existsById(id);
         
         if(!exists){

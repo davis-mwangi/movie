@@ -68,6 +68,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
                 // any other requests must be authenticated
                 .antMatchers(HttpMethod.POST,"/api/v1/users").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/v1/users/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/v1/users").permitAll()
+                .antMatchers(HttpMethod.PUT,"/api/v1/users").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/api/v1/users").permitAll()
                 
                 .antMatchers(HttpMethod.POST,"/api/v1/movies").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/v1/movies").permitAll()
