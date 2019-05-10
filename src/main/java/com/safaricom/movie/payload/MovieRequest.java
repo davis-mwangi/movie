@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.safaricom.movie.utils;
+package com.safaricom.movie.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,11 +14,14 @@ import lombok.NoArgsConstructor;
  * @author david
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Status {
-    private int code;
-    private String message;
-    
-    
+@AllArgsConstructor
+public class MovieRequest {
+    private Integer id;
+    private String title;
+    private String description;
+    private String recommendation;
+    private int rating;
+    private int type;
+    private int status;
 }

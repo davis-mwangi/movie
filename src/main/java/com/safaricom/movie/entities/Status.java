@@ -29,4 +29,10 @@ public class Status implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    public Status(Integer id) {
+        this.id = id;
+    }
+    
+    
 }

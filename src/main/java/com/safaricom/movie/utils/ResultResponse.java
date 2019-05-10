@@ -13,12 +13,9 @@ import lombok.NoArgsConstructor;
  *
  * @author david
  */
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Status {
-    private int code;
-    private String message;
-    
-    
+@AllArgsConstructor
+@Data
+public class ResultResponse {
+    private Status status;
 }

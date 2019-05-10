@@ -5,7 +5,8 @@
  */
 package com.safaricom.movie.repository;
 
-import com.safaricom.movie.entities.User;
+import com.safaricom.movie.entities.Movie;
+import com.safaricom.movie.entities.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,10 +17,12 @@ import org.springframework.data.repository.query.Param;
  *
  * @author david
  */
-public interface  UserDao extends JpaRepository<User, Integer>{
-    @Query(value="SELECT u FROM User u WHERE u.id = :id")
-    User geUser(@Param("id") Integer id);
-    boolean existsByEmail(String email);
-    Page<User>findAllByDateDeletedIsNull(Pageable pageable);
-    User findTop1ByUsername(String username);
+public interface MovieDao extends JpaRepository<Movie,Integer>{
+    boolean existsByTitle(String title);
+    @Query(value="SELECT m FROM Movie m WHERE m.id = :id")
+    Movie getMovie(@Param("id") Integer id); 
+    
+    Page<Movie>findAllByDateDeletedIsNull(Pageable pageable);
+    Page<Movie>findAllByStatusAndDateDeletedIsNull(Status status, Pageable pageable);
+    
 }

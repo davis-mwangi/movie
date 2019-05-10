@@ -25,4 +25,6 @@ public class UserRequest {
     private String physicalAddress;
     private String city;
     private String country;
+    private String password;
+    private String username;
 }

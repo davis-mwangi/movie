@@ -36,6 +36,8 @@ public class User {
     private String physicalAddress;
     private String city;
     private String country;
+    private String password;
+    private String username;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateCreated;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)

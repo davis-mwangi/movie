@@ -6,6 +6,7 @@
 package com.safaricom.movie.service;
 
 import com.safaricom.movie.payload.UserRequest;
+import com.safaricom.movie.repository.LoginResponse;
 import com.safaricom.movie.utils.SingleItemResponse;
 
 /**
@@ -16,4 +17,5 @@ public interface UserService {
     public SingleItemResponse createUpdateUser(UserRequest request);
     public SingleItemResponse getUser(Integer id);
     public SingleItemResponse deleteUser(Integer id);
+    LoginResponse login(String username);
 }

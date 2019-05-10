@@ -177,6 +177,14 @@
             <column name="date_deleted" type="datetime(6)"/>
         </addColumn>
     </changeSet>
+    <changeSet author="David" id="14">
+        <addColumn tableName="users">   
+            <column name="username" type="varchar(100)"/>
+        </addColumn>
+        <addColumn tableName=" users">   
+            <column name="password" type="varchar(500)"/>
+        </addColumn>
+    </changeSet>
     
    
 </databaseChangeLog>
